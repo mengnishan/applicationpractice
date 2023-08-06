@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/topBar"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:text="股票名"
+                android:textSize="20dp"
+                android:layout_width="0dp"
+                android:layout_weight="10"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"/>
+
+            <TextView
+                android:text="最新价格"
+                android:textSize="20dp"
+                android:layout_width="0dp"
+                android:layout_weight="10"
+                android:gravity="center"
+                android:layout_height="match_parent"/>
+
+            <TextView
+                android:text="涨幅"
+                android:textSize="20dp"
+                android:layout_width="0dp"
+                android:layout_weight="10"
+                android:gravity="center"
+                android:layout_height="match_parent"/>
+
+            <TextView
+                android:text="取消"
+                android:textSize="20dp"
+                android:layout_width="0dp"
+                android:layout_weight="10"
+                android:gravity="center"
+                android:layout_height="match_parent"/>
+
+
+
+        </LinearLayout>
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/topBar"
+            android:id="@+id/swipeRefreshc">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewc"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="vertical"
+            android:visibility="gone" />
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
+</RelativeLayout>
+
+
+</FrameLayout>
