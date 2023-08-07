@@ -14,7 +14,7 @@ import com.example.applicationpractice.logic.modle.Stock
 import com.example.retrofit.logic.database.ConcernTable
 import kotlinx.android.synthetic.main.stock_item.view.*
 
-class StockAdapter (private val stockList: List<Stock>) : RecyclerView.Adapter<StockAdapter.ViewHolder>() {
+class StockAdapter (private val stockList: List<Stock>,private val buttonClickListener: ButtonClickListener) : RecyclerView.Adapter<StockAdapter.ViewHolder>() {
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val zqjc: TextView = view.findViewById(R.id.zqjc)
@@ -32,11 +32,14 @@ class StockAdapter (private val stockList: List<Stock>) : RecyclerView.Adapter<S
         viewHolder.itemView.addStock.setOnClickListener{
             val position = viewHolder.adapterPosition
             val stock = stockList[position]
-            Toast.makeText(StockApplication.context, "${stock.zqjc} 关注成功", Toast.LENGTH_SHORT).show()
             concernTable.insertConcernStock(stock)
-
+            buttonClickListener.onButtonClicked()
         }
         return viewHolder
+    }
+
+    interface ButtonClickListener {
+        fun onButtonClicked()
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
