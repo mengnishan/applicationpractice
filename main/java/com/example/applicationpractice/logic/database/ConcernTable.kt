@@ -29,13 +29,22 @@ class ConcernTable(context: Context) :
     }
 
     fun insertConcernStock(stock: Stock) {
-        val db = writableDatabase
-        val values = ContentValues().apply {
-            put("zqjc" , stock.zqjc )
-            put("zxj" , stock.zxj )
-            put("zf" , stock.zf )
+       val db = writableDatabase
+        val searchKeyword = "${stock.zqjc}"
+        val selection = "zqjc LIKE ?"
+        val selectionArgs = arrayOf("%$searchKeyword%")
+        val cursor = db.query("ConcernStock", null, selection, selectionArgs, null, null, null)
+        if (cursor.moveToFirst()){
+            Toast.makeText(StockApplication.context, "${stock.zqjc} 已经关注过了", Toast.LENGTH_SHORT).show()
+        }else{
+            Toast.makeText(StockApplication.context, "${stock.zqjc} 关注成功", Toast.LENGTH_SHORT).show()
+            val values = ContentValues().apply {
+                put("zqjc" , stock.zqjc )
+                put("zxj" , stock.zxj )
+                put("zf" , stock.zf )
+            }
+            db.insert("ConcernStock", null, values)
         }
-        db.insert("ConcernStock", null, values)
     }
 
     fun removeConcernStock(query: String) :List<Stock>{
