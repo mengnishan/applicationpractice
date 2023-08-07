@@ -25,7 +25,7 @@ import java.util.Locale
 
 
 
-class AllStockFragment : Fragment() {
+class AllStockFragment : StockAdapter.ButtonClickListener,Fragment() {
     val viewModel by lazy { ViewModelProvider(this).get(StockViewModel::class.java) }
     private lateinit var adapter: StockAdapter
     //用于获得父布局的搜索框，设置为空方便释放空间
@@ -88,11 +88,16 @@ class AllStockFragment : Fragment() {
                 result.exceptionOrNull()?.printStackTrace()
             }
         })
+        
         //刷新页面，还没有实现数据的更新
         swipeRefresh.setOnRefreshListener {
             Toast.makeText(activity, "刷新成功", Toast.LENGTH_SHORT).show()
             swipeRefresh.isRefreshing = false
         }
+    }
+    override fun onButtonClicked() {
+        val searchmc = activity?.findViewById<EditText>(R.id.searchmc)
+        searchmc?.setText("${searchmc?.text.toString()}")
     }
 
 }
