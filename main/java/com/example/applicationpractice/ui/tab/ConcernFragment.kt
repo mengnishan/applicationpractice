@@ -22,7 +22,7 @@ import kotlinx.android.synthetic.main.concernstock_item.*
 
 import kotlinx.android.synthetic.main.fragment_concern.*
 
-class ConcernFragment : Fragment() {
+class ConcernFragment : ConcernStockAdapter.ButtonClickListener,Fragment() {
     val viewModel by lazy { ViewModelProvider(this).get(StockViewModel::class.java) }
     private lateinit var adapter: ConcernStockAdapter
     private var activity: AppCompatActivity? = null
@@ -93,7 +93,11 @@ class ConcernFragment : Fragment() {
         viewModel.searchStocks(searchmc?.text.toString())
         Log.d("MainActivity", "下拉刷新的返回值 + ${searchmc?.text.toString()}")
         swipeRefreshc.isRefreshing = false
+    }
 
+     override fun onButtonClicked() {
+        val searchmc = activity?.findViewById<EditText>(R.id.searchmc)
+        searchmc?.setText("${searchmc?.text.toString()}")
     }
 
 }
