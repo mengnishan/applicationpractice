@@ -13,7 +13,7 @@ import com.example.retrofit.logic.database.ConcernTable
 import kotlinx.android.synthetic.main.concernstock_item.view.*
 import kotlinx.android.synthetic.main.stock_item.view.*
 
-class ConcernStockAdapter (private var stockList: MutableList<Stock>) : RecyclerView.Adapter<ConcernStockAdapter.ViewHolder>() {
+class ConcernStockAdapter (private var stockList: MutableList<Stock>, private val buttonClickListener: ConcernFragment) : RecyclerView.Adapter<ConcernStockAdapter.ViewHolder>() {
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val zqjc: TextView = view.findViewById(R.id.zqjc)
         val zxj: TextView = view.findViewById(R.id.zxj)
@@ -33,11 +33,16 @@ class ConcernStockAdapter (private var stockList: MutableList<Stock>) : Recycler
             Toast.makeText(StockApplication.context, "${stock.zqjc} 移除成功", Toast.LENGTH_SHORT).show()
             val newData = concernTable.removeConcernStock(stock.zqjc)
             //删除数据后立即更新RecyclerView
-            updateData(newData)
+            //updateData(newData)
+            buttonClickListener.onButtonClicked()
         }
         return viewHolder
     }
 
+    interface ButtonClickListener {
+        fun onButtonClicked()
+    }
+    
     fun updateData(newData: List<Stock>) {
         stockList.clear()
         stockList.addAll(newData)
